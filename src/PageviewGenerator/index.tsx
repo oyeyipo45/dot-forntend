@@ -1,11 +1,19 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../utils';
 import { usePageviewGenerator } from './logic';
 
 export const PageviewGenerator: React.FC = () => {
   const { generate, pageview } = usePageviewGenerator();
-  ;
+  const ping = async () => {
+    const serverPing = await axios.get(`${BASE_URL}`);
+    return serverPing;
+  };
+
+  useEffect(() => {
+    ping();
+  }, []);
 
   return (
     <>

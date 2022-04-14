@@ -2,6 +2,7 @@ import { useState } from "react"
 import cuid from "cuid"
 import { loremIpsum } from "lorem-ipsum"
 import axios from 'axios'
+import { BASE_URL } from '../utils'
 
 interface Pageview {
   id: string
@@ -41,7 +42,6 @@ export const usePageviewGenerator = () => {
         created_at: randomDate(new Date(2019, 0, 1), new Date()),
       },
     };
-    const BASE_URL = process.env.REACT_APP_BASE_URL;
     
     const saved = await axios.post(`${BASE_URL}/pages/register`, event);
 

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../utils';
 
 const Stat = () => {
-
   const [pages, setPages] = useState([]);
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL;
-
+  // Fetch page data list
   const getData = async () => {
     const pagelist = await axios.get(`${BASE_URL}/pages`);
 
     setPages(pagelist?.data?.data);
   };
 
+  
   useEffect(() => {
+    // Fetchh and set page data list t state
     getData();
   }, []);
 
@@ -26,6 +27,10 @@ const Stat = () => {
           Back to Generate pageview
         </button>
       </Link>{' '}
+        <button   onClick={getData} className='cursor' style={{ fontSize: 24, marginTop: 40, marginBottom: 40 }}>
+          {' '}
+          Fetch Pages Updates
+        </button>
       {pages && (
         <table className='styled-table'>
           <thead>
