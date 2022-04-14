@@ -1,6 +1,7 @@
 import { useState } from "react"
 import cuid from "cuid"
 import { loremIpsum } from "lorem-ipsum"
+import axios from 'axios'
 
 interface Pageview {
   id: string
@@ -24,7 +25,7 @@ const randomDate = (start: Date, end: Date) =>
 export const usePageviewGenerator = () => {
   const [pageview, setPageview] = useState<Pageview | null>(null)
 
-  const generate = () => {
+  const generate = async () => {
     const event: Pageview = {
       id: cuid(),
       created_at: new Date(),
@@ -42,8 +43,13 @@ export const usePageviewGenerator = () => {
         created_at: randomDate(new Date(2019, 0, 1), new Date())
       }
     }
+    
 
     setPageview(event)
+
+    // Send page data to the data store after generation
+    const saved = await axios.post('http://localhost:4000/page/register', pageview);
+
   }
 
   return {

@@ -1,15 +1,31 @@
-import React from 'react'
-import { usePageviewGenerator } from './logic'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { usePageviewGenerator } from './logic';
 
 export const PageviewGenerator: React.FC = () => {
-  const { generate, pageview } = usePageviewGenerator()
+  const { generate, pageview } = usePageviewGenerator();
+  const [pages, setPages] = useState([]);
 
+  const getData = async () => {
+    const pagelist = await axios.get('http://localhost:4000/pages');
+
+    setPages(pagelist?.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(pages, 'pages');
   return (
     <>
       <button style={{ fontSize: 24, marginBottom: 40 }} onClick={generate}>
         Generate pageview
       </button>
-
+      <Link to='/stats'>
+        <button style={{ fontSize: 24, marginBottom: 40, marginLeft: 20 }}> stats</button>
+      </Link>{' '}
       {pageview && (
         <>
           <h3>Last pageview</h3>
@@ -23,5 +39,5 @@ export const PageviewGenerator: React.FC = () => {
         </>
       )}
     </>
-  )
-}
+  );
+};
