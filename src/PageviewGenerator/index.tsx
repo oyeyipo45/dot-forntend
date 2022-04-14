@@ -5,26 +5,18 @@ import { usePageviewGenerator } from './logic';
 
 export const PageviewGenerator: React.FC = () => {
   const { generate, pageview } = usePageviewGenerator();
-  const [pages, setPages] = useState([]);
+  ;
 
-  const getData = async () => {
-    const pagelist = await axios.get('http://localhost:4000/pages');
-
-    setPages(pagelist?.data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  console.log(pages, 'pages');
   return (
     <>
-      <button style={{ fontSize: 24, marginBottom: 40 }} onClick={generate}>
+      <button className='cursor' style={{ fontSize: 24, marginBottom: 40 }} onClick={generate}>
         Generate pageview
       </button>
       <Link to='/stats'>
-        <button style={{ fontSize: 24, marginBottom: 40, marginLeft: 20 }}> stats</button>
+        <button className='cursor' style={{ fontSize: 24, marginBottom: 40, marginLeft: 20 }}>
+          {' '}
+          View pages statistics
+        </button>
       </Link>{' '}
       {pageview && (
         <>

@@ -27,28 +27,28 @@ export const usePageviewGenerator = () => {
 
   const generate = async () => {
     const event: Pageview = {
-      id: cuid(),
+      id: cuid().slice(21),
       created_at: new Date(),
 
       page: {
         title: loremIpsum(),
         description: loremIpsum({ count: 3 }),
-        tags: Array.from({ length: Math.floor(Math.random() * 10) }, () =>
-          loremIpsum({ units: 'words', count: 1 })
-        )
+        tags: Array.from({ length: Math.floor(Math.random() * 10) }, () => loremIpsum({ units: 'words', count: 1 })),
       },
 
       user: {
-        id: `USER${cuid()}`,
-        created_at: randomDate(new Date(2019, 0, 1), new Date())
-      }
-    }
+        id: `USER${cuid().slice(21)}`,
+        created_at: randomDate(new Date(2019, 0, 1), new Date()),
+      },
+    };
     
+    const saved = await axios.post('http://localhost:4000/pages/register', event);
+
+
+    console.log(saved, 'saved');
 
     setPageview(event)
-
-    // Send page data to the data store after generation
-    const saved = await axios.post('http://localhost:4000/page/register', pageview);
+    
 
   }
 
