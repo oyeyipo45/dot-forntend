@@ -52,7 +52,7 @@ const Stat = () => {
                 <tr className='key' key={item.id}>
                   <th scope='row'>{index + 1}</th>
                   <th>{item.id}</th>
-                  <td className='width'>{item.page.title}</td>
+                  <td className='width-1'>{item.page.title}</td>
                   <td className='width'>{item.page.description}</td>
                   <td>
                     {item.page.tags.map((tag: any, index: any) => {
