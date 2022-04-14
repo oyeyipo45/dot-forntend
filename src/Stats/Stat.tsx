@@ -6,8 +6,10 @@ const Stat = () => {
 
   const [pages, setPages] = useState([]);
 
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
   const getData = async () => {
-    const pagelist = await axios.get('http://localhost:4000/pages');
+    const pagelist = await axios.get(`${BASE_URL}/pages`);
 
     setPages(pagelist?.data?.data);
   };

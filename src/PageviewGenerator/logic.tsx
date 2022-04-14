@@ -41,8 +41,9 @@ export const usePageviewGenerator = () => {
         created_at: randomDate(new Date(2019, 0, 1), new Date()),
       },
     };
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     
-    const saved = await axios.post('http://localhost:4000/pages/register', event);
+    const saved = await axios.post(`${BASE_URL}/pages/register`, event);
 
 
     console.log(saved, 'saved');
